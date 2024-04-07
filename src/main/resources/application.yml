@@ -1,9 +1,8 @@
 logging.level:
   root: WARN
+  org.apache.pulsar.common.util.netty.DnsResolverUtil: ERROR
   com.acme: INFO
-  org.springframework.pulsar: INFO
-
-server.port: 9090
+  org.springframework: INFO
 
 spring:
   cloud:
@@ -23,9 +22,7 @@ spring:
         bindings:
           customerSignupProcessor-in-0:
             consumer:
-              schema-type: JSON
-              message-type: com.acme.pulsar.model.Signup
+              message-type: com.acme.pulsar.model.UserSignup
           customerSignupProcessor-out-0:
             producer:
-              schema-type: JSON
-              message-type: com.acme.pulsar.model.CustomerCard
+              message-type: com.acme.pulsar.model.CustomerSignup
