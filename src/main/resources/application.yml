@@ -1,0 +1,31 @@
+logging.level:
+  root: WARN
+  com.acme: INFO
+  org.springframework.pulsar: INFO
+
+server.port: 9090
+
+spring:
+  cloud:
+    function:
+      definition: customerSignupProcessor
+    stream:
+      bindings:
+        customerSignupProcessor-in-0:
+          destination: user-signup-topic
+          consumer:
+            use-native-decoding: true
+        customerSignupProcessor-out-0:
+          destination: customer-signup-topic
+          producer:
+            use-native-encoding: true
+      pulsar:
+        bindings:
+          customerSignupProcessor-in-0:
+            consumer:
+              schema-type: JSON
+              message-type: com.acme.pulsar.model.Signup
+          customerSignupProcessor-out-0:
+            producer:
+              schema-type: JSON
+              message-type: com.acme.pulsar.model.CustomerCard
